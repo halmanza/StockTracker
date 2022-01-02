@@ -52,7 +52,7 @@ export default {
 
       try {
         let stockFetch = await fetch(
-          `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stock}&interval=5min&apikey=${process.env.$API_KEY}`
+          `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stock}&interval=5min&apikey=${process.env.API_KEY}`
         );
 
         StockInfo = await stockFetch.json();
