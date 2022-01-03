@@ -1,14 +1,26 @@
 <template>
   <div id="stockConsumerContainer">
     <va-input
+      placeholder="press ctrl + &darr; to clear"
       v-model="stockInputData"
       label="stockSymbol"
       :rules="[(input) => input.length >= 1 || `Enter valid stock symbol`]"
       v-on:keyup.ctrl.down="resetInputField()"
-      v-on:keyup.delete="this.stockInputData === '' ? resetInputField() : null"
       v-on:keydown.enter="
         searchStockBySymbol(this.stockInputData.toUpperCase().trim())
       "
+    />
+
+    <va-button-toggle
+      v-model="filterOptions"
+      flat
+      size="medium"
+      :rounded="false"
+      :options="[
+        { label: `Search`, value: `search` },
+        { label: `Filter`, value: `filter` },
+        { label: `Reset`, value: `reset` },
+      ]"
     />
   </div>
 
@@ -37,7 +49,15 @@
     class="ml-2"
     :class="{ mobile: isMobile, fullColumnSize: isMobile == false }"
   >
-    <va-data-table :items="stockDataStorage" />
+    <va-data-table
+      :items="stockDataStorage"
+      v-if="this.filterOptions !== `filter`"
+    />
+    <va-data-table
+      :items="stockDataStorage"
+      v-if="this.filterOptions == `filter`"
+      :filter="this.stockInputData"
+    />
   </div>
 </template>
 
@@ -47,11 +67,12 @@ export default {
     return {
       stockInputData: "",
       stockFilter: "",
-      shortCutNotice: "Hold ctrl + down arrow to clear",
       stockDataStorage: [],
       stockHeadingDataStorage: [],
       screenSize: 0,
       isMobile: false,
+      filterOptions: "",
+      filter: "",
     };
   },
   beforeUpdate() {
@@ -64,6 +85,26 @@ export default {
       this.checkScreenSize < 375
         ? (this.screenSize = currentScreen)
         : (this.screenSize = oldValue);
+    },
+    filterOptions: function (currentFiltervalue) {
+      switch (currentFiltervalue) {
+        case "search":
+          this.searchStockBySymbol(this.stockInputData.toUpperCase().trim());
+
+          this.filterOptions = "";
+
+          break;
+
+        case "reset":
+          this.resetInputField();
+
+          this.filterOptions = "";
+
+          break;
+
+        case "filter":
+          this.stockInputData = this.filter;
+      }
     },
   },
 
