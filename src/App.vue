@@ -24,7 +24,15 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #167be0;
+  color: #625ba7;
   margin-top: 60px;
+}
+
+body {
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+body::-webkit-scrollbar {
+  display: none;
 }
 </style>
