@@ -1,24 +1,8 @@
 # stock-tracker
 
-## Project setup
-```
-npm install
-```
+Light weight stock tracker that displays value of daily stock values from open of market to close. It lists value of stock at open,close,high, and low.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Built upon:
+  - Vue.Js
+  - Vuestic UI components
+  - Alpha Advantage API
