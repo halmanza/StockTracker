@@ -11,7 +11,11 @@
       "
     />
   </div>
-  <div v-if="this.stockHeadingDataStorage.length">
+
+  <div
+    v-if="this.stockHeadingDataStorage.length"
+    :class="{ addScroll: this.stockHeadingDataStorage.length }"
+  >
     <h3>Ticker History</h3>
     <div
       aria-label="Current Stock Information"
@@ -19,7 +23,10 @@
       v-for="labelData in this.stockHeadingDataStorage"
       :key="labelData"
     >
-      <a @click="searchStockBySymbol(labelData[`Symbol`])">
+      <a
+        @click="searchStockBySymbol(labelData[`Symbol`])"
+        :class="{ addHoverLink: this.stockHeadingDataStorage.length }"
+      >
         {{ labelData["Symbol"] }} , Last Refreshed:
         {{ labelData["Refreshed"] }}
       </a>
@@ -39,6 +46,7 @@ export default {
   data() {
     return {
       stockInputData: "",
+      stockFilter: "",
       shortCutNotice: "Hold ctrl + down arrow to clear",
       stockDataStorage: [],
       stockHeadingDataStorage: [],
@@ -48,7 +56,7 @@ export default {
   },
   beforeUpdate() {
     if (this.stockHeadingDataStorage.length >= 1) {
-      this.clearHeadingStorage();
+      this.clearStockHistory();
     }
   },
   watch: {
@@ -72,6 +80,7 @@ export default {
   methods: {
     async searchStockBySymbol(stock) {
       this.stockDataStorage = [];
+
       let StockInfo;
 
       try {
@@ -106,17 +115,21 @@ export default {
 
       this.stockInputData = stock;
     },
+
     resetInputField() {
       this.stockInputData = "";
+
       this.stockDataStorage = [];
     },
+
     setMobileCheck() {
       if (this.checkScreenSize <= 375) {
         this.isMobile = true;
       }
+
       this.screenSize = this.checkScreenSize;
     },
-    clearHeadingStorage() {
+    clearStockHistory() {
       const ids = this.stockHeadingDataStorage.map((item) => item.Symbol);
 
       this.stockHeadingDataStorage = this.stockHeadingDataStorage.filter(
@@ -143,5 +156,19 @@ export default {
 
 .mobile {
   font-size: 2px;
+}
+
+.addScroll {
+  overflow-y: auto;
+  color: rgb(255, 251, 251);
+}
+
+.addHoverLink:hover {
+  color: rgba(45, 201, 240, 0.945);
+  cursor: pointer;
+}
+div.addScroll {
+  background: black;
+  margin: 0.2rem;
 }
 </style>

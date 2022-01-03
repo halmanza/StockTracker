@@ -1,6 +1,9 @@
 import { createApp } from "vue";
+
 import App from "./App.vue";
+
 import { VaInput, VaDataTable } from "vuestic-ui"; // <-
+
 import "vuestic-ui/dist/vuestic-ui.css"; // <-
 
 createApp(App)

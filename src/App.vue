@@ -5,6 +5,7 @@
 
 <script>
 import StockConsumer from "./components/StockConsumer.vue";
+
 export default {
   name: "App",
   components: {
@@ -31,7 +32,7 @@ body {
   overflow-x: hidden;
   scrollbar-width: none;
 }
-*::-webkit-scrollbar {
+body::-webkit-scrollbar {
   display: none;
 }
 </style>
