@@ -151,6 +151,10 @@ export default {
           this.stockDataStorage.push(stockStorageObject);
         }
       } catch (error) {
+        if (error.stack.includes("TypeError")) {
+          alert("Please Enter a valid stock symbol.");
+        }
+
         return error.message;
       }
 
