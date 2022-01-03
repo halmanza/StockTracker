@@ -77,11 +77,12 @@ export default {
           this.stockDataStorage.push(stockStorageObject);
         }
       } catch (error) {
-        console.error(error.message);
+        return error.message;
       }
     },
     resetInputField() {
       this.stockInputData = "";
+
       this.stockDataStorage = [];
     },
   },

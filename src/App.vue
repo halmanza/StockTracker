@@ -5,6 +5,7 @@
 
 <script>
 import StockConsumer from "./components/StockConsumer.vue";
+
 export default {
   name: "App",
   components: {
